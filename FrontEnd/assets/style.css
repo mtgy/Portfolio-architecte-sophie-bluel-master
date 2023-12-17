@@ -125,6 +125,35 @@ li:hover {
 	text-align: center;
 	margin-bottom: 1em;
 }
+
+
+/*ajout des btn filter */
+
+#filters {
+	text-align: center;
+  }
+
+.filter-button {
+	cursor: pointer;
+	font-family: 'Syne';
+	font-weight: 700;
+	background-color: white;
+	color: #1D6154;
+	margin : 2em 1em ;
+	padding: 0.75em 1em;
+	text-align: center;
+	border-radius: 60px ;
+	border: 2px solid #1D6154;
+	font-size: 16px;
+	box-shadow: 0px 4px 14px rgba(0, 0, 0, 0.09);
+}
+
+.filter-button:hover {
+	color: white;
+	background-color: #1D6154;
+
+}
+
 .gallery {
 	width: 100%;
 	display: grid;
@@ -137,6 +166,15 @@ li:hover {
 	width: 100%;
 
 }
+
+.gallery figure.on {
+	display: block;
+}
+
+.gallery figure.off {
+	display: none;
+}
+
 #contact {
 	width: 50%;
 margin: auto;
