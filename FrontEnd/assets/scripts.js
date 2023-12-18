@@ -23,25 +23,23 @@ function itemGallery(data) {
   const parentItemGallery = document.querySelector('.gallery');
 
   data.forEach(item => {
-    //creation des items 
+    // Création des items 
     const figureItemGallery = document.createElement('figure');
     parentItemGallery.appendChild(figureItemGallery);
 
-    // integration des images
+    // Intégration des images
     const imageItemGallery = document.createElement('img');
     imageItemGallery.src = item.imageUrl;
     imageItemGallery.setAttribute('alt', item.title);
     figureItemGallery.appendChild(imageItemGallery);
 
-    // integration des captions
+    // Intégration des captions
     const captionItemGallery = document.createElement('figcaption');
     captionItemGallery.innerHTML = item.title;
     figureItemGallery.appendChild(captionItemGallery);
 
-    //integration des categories
-
+    // Intégration des catégories
     figureItemGallery.setAttribute('data-category', item.category.name.toLowerCase());
-
   });
 }
 
@@ -50,40 +48,19 @@ function filtreBtns(data) {
   const categories = new Set(data.map(item => item.category.name.toLowerCase()));
   const filtersContainer = document.getElementById('filters');
 
-
   // Création du bouton "Tous"
   const btnTous = document.createElement('button');
   btnTous.classList.add('filter-button');
   btnTous.textContent = 'Tous';
   filtersContainer.appendChild(btnTous);
 
-///action du btn tous
-  btnTous.addEventListener('click', function() {
-  const category = 'all'; // Définition de la catégorie pour le bouton "Tous"
-  filtreGallery(category);
-});
-
-// boutons categorie filtre
-  categories.forEach(category => {
-    const filtreBtn = document.createElement('button');
-    filtreBtn.classList.add('filter-button');
-    filtreBtn.setAttribute('data-category', category);
-    filtreBtn.textContent = category.charAt(0).toUpperCase() + category.slice(1);
-    filtersContainer.appendChild(filtreBtn);
-
-    filtreBtn.addEventListener('click', function() {
-      const category = this.getAttribute('data-category');
-       filtreGallery(category);
-    });
-    
-  });
-/// fonctionnement des boutons de filtre de la galerie
+  // Fonction pour filtrer la galerie en fonction de la catégorie sélectionnée
   function filtreGallery(category) {
     const figures = document.querySelectorAll('.gallery figure');
     figures.forEach(figure => {
       const figureCategory = figure.getAttribute('data-category');
       if (category === 'all') {
-      figure.classList.remove('off');
+        figure.classList.remove('off');
       } else {
         if (figureCategory === category) {
           figure.classList.remove('off');
@@ -92,10 +69,37 @@ function filtreBtns(data) {
         }
       }
     });
+
+    // Mettre à jour la classe active du bouton sélectionné
+    var tousLesfiltres = document.querySelectorAll('.filter-button');
+    tousLesfiltres.forEach(function(bouton) {
+      bouton.classList.remove('active');
+      if (bouton.getAttribute('data-category') === category) {
+        bouton.classList.add('active');
+      }
+    });
   }
- 
-  
-  
+
+  // Action du bouton "Tous"
+  btnTous.addEventListener('click', function() {
+    const category = 'all'; // Définition de la catégorie pour le bouton "Tous"
+    filtreGallery(category);
+  });
+
+  // Création des boutons pour chaque catégorie de filtre
+  categories.forEach(category => {
+    const filtreBtn = document.createElement('button');
+    filtreBtn.classList.add('filter-button');
+    filtreBtn.setAttribute('data-category', category);
+    filtreBtn.textContent = category.charAt(0).toUpperCase() + category.slice(1);
+    filtersContainer.appendChild(filtreBtn);
+
+    // Action pour chaque bouton de filtre
+    filtreBtn.addEventListener('click', function() {
+      const category = this.getAttribute('data-category');
+      filtreGallery(category);
+    });
+  });
 }
 
 // Appel de la fonction pour récupérer les données et afficher la galerie
