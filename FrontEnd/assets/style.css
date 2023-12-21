@@ -93,6 +93,7 @@ nav ul {
 nav li {
 	padding: 0 10px;
 	font-size: 1.2em;
+	cursor: pointer;
 }
 
 nav li.selected {
@@ -102,6 +103,8 @@ font-weight: 800;
 li:hover {
 	color: #B1663C;
 }
+
+
 #introduction {
 	display: flex;
 	align-items: center;
@@ -125,9 +128,18 @@ li:hover {
 #introduction p {
 	margin-bottom: 0.5em;
 }
-#portfolio h2 {
+
+/*ajout de modifier */
+.title-and-nav {
+    display: flex;
+    align-items: center; 
+    justify-content: center; 
 	text-align: center;
-	margin-bottom: 1em;
+  	margin-bottom: 1em;
+}
+
+.modifier {
+	display: none;
 }
 
 

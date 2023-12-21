@@ -8,12 +8,12 @@ function fetchData() {
       return response.json(); // Transforme la réponse en JSON
     })
     .then(data => {
-      // Appel de la fonction pour afficher la galerie avec les données récupérées
+      // affiche la galerie avec les données récupérées
       itemGallery(data);
       filtreBtns(data); // Appel pour créer les boutons de filtre
     })
     .catch(error => {
-      // Attrape les erreurs de requête ou de traitement des données
+      
       console.error('Erreur:', error);
     });
 }
@@ -43,7 +43,7 @@ function itemGallery(data) {
   });
 }
 
-// Fonction pour créer les boutons de filtre
+// les boutons de filtre
 function filtreBtns(data) {
   const categories = new Set(data.map(item => item.category.name.toLowerCase()));
   const filtersContainer = document.getElementById('filters');
@@ -80,7 +80,7 @@ function filtreBtns(data) {
     });
   }
 
-  // Action du bouton "Tous"
+  // bouton "Tous"
   btnTous.addEventListener('click', function() {
     const category = 'all'; // Définition de la catégorie pour le bouton "Tous"
     filtreGallery(category);
@@ -102,5 +102,41 @@ function filtreBtns(data) {
   });
 }
 
-// Appel de la fonction pour récupérer les données et afficher la galerie
+
 fetchData();
+
+
+
+
+// boputon login-logout
+document.addEventListener('DOMContentLoaded', function() {
+  const userToken = localStorage.getItem('userToken');
+  const logBtn = document.getElementById('userLoginBtn');
+  const navPortModif = document.querySelector('nav.modifier');
+
+
+  logBtn.addEventListener('click', function() {
+      localStorage.removeItem('userToken');
+      window.location.href = "login.html"; // la redirection
+  });
+
+  if (userToken) {
+      // qd est connecté
+      alert("Vous êtes connecté !");
+      
+      //modification du nom du btn
+      logBtn.innerHTML = "logout";
+
+      //apparition du btn modifier
+      navPortModif.style.display = 'block';
+
+
+  } else {
+      // qd n'est pas connecté
+      console.log("Utilisateur pas connecté !");
+      logBtn.textContent = "login";
+      navPortModif.style.display = 'none';
+  }
+
+
+});
