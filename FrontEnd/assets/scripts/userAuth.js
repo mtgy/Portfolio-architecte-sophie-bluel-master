@@ -3,27 +3,29 @@ document.getElementById("loginForm").addEventListener("submit", function(event) 
   
     const email = document.getElementById("email").value;
     const password = document.getElementById("password").value;
+    const userToken = localStorage.getItem('userToken');
   
-    // Envoi des données d'authentification 
+  
     fetch("http://localhost:5678/api/users/login", {
         method: "POST",
         headers: {
-            "Content-Type": "application/json"
+            "Content-Type": "application/json",
+            'Authorization': `Bearer ${userToken}`, 
         },
         body: JSON.stringify({ email, password })
     })
     .then(response => {
         if (response.ok) {
-            return response.json(); // Convertir la réponse en JSON
+            return response.json(); 
         } else {
             throw new Error('Authentification échouée');
         }
     })
     .then(data => {
-        // Stocker les infos dans le localStorage
+      
         localStorage.setItem('userToken', data.token); 
         
-        // redirection sur l'index
+      
         window.location.href = "index.html"; 
     })
     .catch(error => {
